@@ -123,29 +123,10 @@ var saveDir = function(data, row, callback) {
     data: send,
     type: 'POST',
     success: function(filmdata) {
-      console.log(filmdata);
-      return;
-      if (!filmdata) {
-        return;
-      }
-      filmdata = JSON.parse(filmdata);
-      filmdata.dir = data.dir;
-      $.ajax({
-        url: 'savedir',
-        data: filmdata,
-        type: 'POST',
-        dataType: 'json',
-        success: function(data) {
-          if (!data) {
-            // An error. Let's just ignore it.
-            return;
-          }
-          // Not error. Let's make the world a greener place.
-          row.addClass('greener');
-          // ...and run callback.
-          callback();
-        }
-      });
+      // Make row look... eh, green.
+      row.addClass('greener');
+      // ...and run callback.
+      callback();
     }
   });
   return;

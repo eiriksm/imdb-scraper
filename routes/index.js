@@ -2,6 +2,7 @@ var rdb
   , fs = require('fs')
   , cheerio = require('cheerio')
   , imdb = require('../imdb')
+  , exec = require('child_process').exec
   , proxy = require('../scraper')
   , r = require('rethinkdb');
 
@@ -17,7 +18,13 @@ r.connect({host:'localhost', port:28015}, function(conn) {
   rdb = conn;
   // Set up all databases needed.
 });
+exports.test = function(req, res) {
+  exec('vlc&', function(error, stdout, stderr) {
+    console.log('something');
+    res.send('OK!');
+  });
 
+}
 
 exports.index = function(req, res){
   res.render('index', { title: 'Directory mapping', index: 'index' });
@@ -51,6 +58,7 @@ exports.getdirs = function(req, res) {
           var id = movies[i].dir;
           films[id] = movies[i]
         }
+        res.set('Content-Type', 'application/json');
         res.send('var dirs = ' + JSON.stringify(dirs) +
                  ';var dir_mapping = ' + JSON.stringify(films));
       })
@@ -61,14 +69,6 @@ exports.exclude = function(req, res) {
   var dir = req.param('dir');
   imdb.writedb('settings', {'exclude': true, 'name': dir});
   res.send(true);
-}
-exports.savedir = function(req, res) {
-  r.connect({host:'localhost', port:28015}, function(conn) {
-    conn.use('imdb');
-    var movie = req.body;
-    r.table('movies').insert(req.body, true).run();
-    res.send(true);
-  });
 }
 exports.proxy = function(req, res) {
   var url = req.param('url');

@@ -15,10 +15,6 @@ var paths = {
     'method': 'post',
     'route': 'exclude'
   },
-  '/savedir': {
-    'method': 'post',
-    'route': 'savedir'
-  },
   '/proxy': {
     'method': 'post',
     'route': 'proxy'
@@ -26,6 +22,10 @@ var paths = {
   '/search': {
     'method': 'post',
     'route': 'search'
+  },
+  '/test': {
+    'method': 'get',
+    'route': 'test'
   }
 }
 
