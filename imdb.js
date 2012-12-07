@@ -25,7 +25,7 @@ r.connect({host:'localhost', port:28015}, function(conn) {
  */
 var writedb = function(table, obj) {
    try {
-    rdb.run(r.table(table).insert(obj));
+    rdb.run(r.table(table).insert(obj, true));
    } catch(err) {
     // The database connection is most likely down.
     rdb.reconnect()
@@ -60,7 +60,9 @@ var film = function () {
   this.rating = 0;
   this.description = '';
   this.image = '';
+  this.dir = '';
   this.genres = [];
+  this.timestamp = parseInt(parseInt(new Date().getTime()) / 1000);
 }
 
 film.prototype.parse = function($) {
@@ -86,7 +88,7 @@ film.prototype.parse = function($) {
     });
   });
   $('a[itemprop="director"]').each(function(i,n) {
-    // Save all directors (most likely just one, though)
+    // Save all directors (most likely just one, though).
     film.directors.push({
       'id': $(n).attr('href'),
       'name': $(n).text()
@@ -99,10 +101,14 @@ film.prototype.parse = function($) {
   film.image = $('img[itemprop="image"]').attr('src');
   film.rating = ($('.star-box-giga-star').text());
   film.metaRating = $('.star-box-details a[href="criticreviews"]:eq(1)').text();
-  // Save the p-tag with genre, since we will use it twice.
+  // Save the p-tag with genre in a variable, since we will use it twice.
   $ptag = $('a[itemprop="genre"]').parent().parent().find('p');
   $ptag.remove('em');
   film.description = $ptag.text();
+}
+
+film.prototype.save = function() {
+  writedb('movies', this);
 }
 
 exports.cache = cache;

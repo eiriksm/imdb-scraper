@@ -114,10 +114,17 @@ var trim = function(string) {
 }
 
 var saveDir = function(data, row, callback) {
+  var send = {
+    'url': 'http://imdb.com/title/' + data.id,
+    'dir': data.dir
+  }
   $.ajax({
-    url: 'proxy?url=http://imdb.com/title/' + data.id,
+    url: 'proxy',
+    data: send,
     type: 'POST',
     success: function(filmdata) {
+      console.log(filmdata);
+      return;
       if (!filmdata) {
         return;
       }
