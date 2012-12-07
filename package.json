@@ -1,5 +1,5 @@
 {
-  "name": "Imdb scraper",
+  "name": "imdb_scraper",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "express": "3.0.3",
     "jade": "*",
     "cheerio": "*",
-    "rethinkdb": "*"
+    "rethinkdb": "*",
+    "request": "*"
   }
 }
