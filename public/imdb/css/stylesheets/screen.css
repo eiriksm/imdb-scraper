@@ -1,0 +1,64 @@
+/* line 1, ../sass/screen.scss */
+.odd {
+  background: #eee;
+}
+
+/* line 5, ../sass/screen.scss */
+.film-row,
+.dir-row {
+  padding: 20px 10px;
+}
+/* line 7, ../sass/screen.scss */
+.film-row button,
+.dir-row button {
+  margin-top: -10px;
+}
+/* line 9, ../sass/screen.scss */
+.film-row button i,
+.dir-row button i {
+  font-size: 1.4em;
+}
+
+/* line 14, ../sass/screen.scss */
+.green, .marked.greener {
+  background: lightgreen;
+}
+
+/* line 17, ../sass/screen.scss */
+.marked {
+  background: red;
+}
+
+/* line 23, ../sass/screen.scss */
+.container-fluid {
+  margin-top: 60px;
+}
+
+/* line 26, ../sass/screen.scss */
+#parser {
+  display: none;
+}
+
+/* line 29, ../sass/screen.scss */
+.thumbnail {
+  float: right;
+  margin-right: 10px;
+}
+
+/* line 33, ../sass/screen.scss */
+#progresser {
+  text-align: center;
+  display: none;
+}
+/* line 35, ../sass/screen.scss */
+#progresser i {
+  font-size: 5em;
+  color: grey;
+  margin: 10px;
+  display: block;
+}
+
+/* line 45, ../sass/screen.scss */
+.affix li a {
+  border: 1px solid lightgrey;
+}

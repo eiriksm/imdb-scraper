@@ -1,0 +1,11 @@
+mixin navlist(id, text)
+  li
+    a(id=id, href='javascript:void(0)')= text
+      i.icon-chevron-right.pull-right
+
+ul.nav.nav-list
+  mixin navlist('searchall', 'Find metadata all')
+  mixin navlist('abortscrape', 'Abort scrape queue')
+  mixin navlist('saveall', 'Save all marked')
+  mixin navlist('abortsave', 'Abort save queue')
+  mixin navlist('hidegreen', 'Toggle green directories')

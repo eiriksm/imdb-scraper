@@ -1,0 +1,22 @@
+extends layout
+
+
+block sidebar-spec
+  if (index == 'index')
+    include mapping
+  if (index == 'list')
+    p test
+
+block content
+  if (index == 'index')
+    div#dirlist
+  if (index == 'list')
+    div#thelist
+
+block footer
+  if (index == 'index')
+    script(src="getdirs")
+    script(src="imdb/scrape.js")
+  if (index == 'list')
+    script(src="getdirs")
+    script(src="imdb/list.js")

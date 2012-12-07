@@ -1,0 +1,24 @@
+doctype 5
+html
+  head
+    title= title
+    include head
+  body
+    include toolbar
+
+    .container-fluid
+      .row-fluid
+        .span2
+          .affix
+            .nav.nav-list
+              include sidebar
+            block sidebar-spec
+        .span10
+          block content
+    div#themodal.modal.hide.fade
+      div.modal-header
+        button(type="button", data-dismiss="modal", aria-hidden="true").close &times;
+        h3#modalheader
+      div.modal-body
+        p#modalbody
+    block footer

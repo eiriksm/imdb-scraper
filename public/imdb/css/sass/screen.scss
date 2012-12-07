@@ -1,0 +1,49 @@
+.odd {
+  background: #eee;
+}
+.film-row,
+.dir-row {
+  padding: 20px 10px;
+  button {
+    margin-top: -10px;
+    i {
+      font-size: 1.4em;
+    }
+  }
+}
+.green {
+  background: lightgreen;
+}
+.marked {
+  background: red;
+  &.greener {
+    @extend .green;
+  }
+}
+.container-fluid {
+  margin-top: 60px;
+}
+#parser {
+  display: none;
+}
+.thumbnail {
+  float: right;
+  margin-right: 10px;
+}
+#progresser {
+  text-align: center;
+  i {
+    font-size: 5em;
+    color: grey;
+    margin: 10px;
+    display: block;
+  }
+  display: none;
+}
+.affix {
+  li {
+    a {
+      border: 1px solid lightgrey;
+    }
+  }
+}
