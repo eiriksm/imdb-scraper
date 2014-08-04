@@ -1,12 +1,14 @@
 var rdb;
 var r = require('rethinkdb');
+// @todo. Make some fallback with this.
+var unwritten = [];
 
 /**
  * Connect to database and make connection available as global var rdb.
  */
-r.connect({host:'localhost', port:28015}, function(conn) {
+r.connect({host:'localhost', port:28015}, function(e, conn) {
   // Create the db if we don't have it (will not overwrite).
-  conn.run(r.dbCreate('imdb'));
+  r.dbCreate('imdb').run(conn);
   // Set to use imdb as database.
   conn.use('imdb');
   // rdb is now global connection.
@@ -25,27 +27,27 @@ r.connect({host:'localhost', port:28015}, function(conn) {
  */
 var writedb = function(table, obj) {
    try {
-    rdb.run(r.table(table).insert(obj, true));
+    r.db('imdb').table(table).insert(obj).run(rdb);
    } catch(err) {
     // The database connection is most likely down.
-    rdb.reconnect()
-    writedb(table, obj);
+    rdb.reconnect();
+    unwritten.push(obj);
   }
 }
 
 /**
  * A constructor for a cache object.
  */
-var cache = function() {
+var Cache = function() {
   this.cid = '';
   this.data = {};
   this.expire = 0;
-}
+};
 
-cache.prototype.save = function(result) {
+Cache.prototype.save = function(result) {
   // Write cache object to db.
   writedb('cache', this);
-}
+};
 
 var film = function () {
   this.url = '';
@@ -63,7 +65,7 @@ var film = function () {
   this.dir = '';
   this.genres = [];
   this.timestamp = parseInt(parseInt(new Date().getTime()) / 1000);
-}
+};
 
 film.prototype.parse = function($) {
   var film = this;
@@ -76,7 +78,7 @@ film.prototype.parse = function($) {
 
   // Save title
   film.title = $('h1[itemprop="name"]').text();
-  film.runtime = $('time[itemprop="duration"]:eq(0)').text();
+  film.runtime = $('time[itemprop="duration"]').eq(0).text();
   $('a[href*="country"]').each(function(i,n) {
     film.countries.push($(n).text());
   });
@@ -100,7 +102,7 @@ film.prototype.parse = function($) {
   });
   film.image = $('img[itemprop="image"]').attr('src');
   film.rating = ($('.star-box-giga-star').text());
-  film.metaRating = $('.star-box-details a[href="criticreviews"]:eq(1)').text();
+  film.metaRating = $('.star-box-details a[href="criticreviews"]').eq(1).text();
   // Save the p-tag with genre in a variable, since we will use it twice.
   $ptag = $('a[itemprop="genre"]').parent().parent().find('p');
   $ptag.remove('em');
@@ -111,6 +113,7 @@ film.prototype.save = function() {
   writedb('movies', this);
 }
 
-exports.cache = cache;
+exports.Cache = Cache;
+exports.cache = Cache;
 exports.writedb = writedb;
 exports.film = film;
