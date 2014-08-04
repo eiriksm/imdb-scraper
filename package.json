@@ -17,5 +17,8 @@
     "jade": "^1.5.0",
     "request": "^2.39.0",
     "rethinkdb": "^1.13.0-3"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.3"
   }
 }
