@@ -11,14 +11,14 @@
     "test": "mocha"
   },
   "dependencies": {
-    "body-parser": "^1.5.2",
-    "cheerio": "^0.17.0",
-    "express": "^4.7.2",
-    "jade": "^1.5.0",
-    "request": "^2.39.0",
-    "rethinkdb": "^1.13.0-3"
+    "body-parser": "^1.14.1",
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "request": "^2.64.0",
+    "rethinkdb": "^2.1.1"
   },
   "devDependencies": {
-    "mocha": "^1.21.3"
+    "mocha": "^2.3.3"
   }
 }
